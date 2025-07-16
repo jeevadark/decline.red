@@ -2,50 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Decline Security</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decline | Offensive Security</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0f0f0f;
-      color: #00ff00;
-      font-family: 'Courier New', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #00ff00;
-    }
-
-    p {
-      font-size: 1.2rem;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, #0d0d0d, #1a1a1a);
+      color: #f8f8f8;
       text-align: center;
-      max-width: 600px;
-      margin: 0.5rem 0;
     }
-
-    .glitch {
-      color: #00ff00;
-      text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
-      animation: flicker 1.5s infinite alternate;
+    .highlight {
+      color: #ff0033;
     }
-
-    @keyframes flicker {
-      from { opacity: 1; }
-      to { opacity: 0.6; }
+    .heading-glow {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ff0033;
+      text-shadow: 0 0 15px rgba(255, 0, 51, 0.9), 0 0 25px rgba(255, 0, 51, 0.6);
+      letter-spacing: 1px;
+      margin-top: 3rem;
+    }
+    .sub-text {
+      font-size: 1.25rem;
+      color: #d1d5db;
+      margin-top: 1rem;
+    }
+    .sub-text .highlight {
+      font-weight: 700;
+    }
+    .tagline {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+    .construction {
+      font-size: 1rem;
+      color: #f87171;
+      margin-top: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
-<body>
-  <h1 class="glitch">Decline Security</h1>
-  <p>Offensive Security • Red Team • Adversary Simulation</p>
-  <p>We don’t defend. We <strong>decline.</strong></p>
-  <p><em>Website Under Construction...</em></p>
+<body class="min-h-screen p-6">
+  <h1 class="heading-glow">DECLINE.RED</h1>
+  <p class="sub-text">We don’t defend. We <span class="highlight">decline</span>.</p>
+  <p class="tagline">Red Teaming | Adversary Simulation | Cyber Threat Ops</p>
+  <p class="construction">🚧 This site is currently <span class="highlight">under construction</span>. Stay tuned.</p>
 </body>
 </html>
