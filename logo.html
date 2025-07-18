@@ -1,44 +1,163 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Decline Cybersecurity Logo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background-color: #1a202c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      font-family: 'Inter', sans-serif;
-    }
-    .container {
-      background-color: #2d3748;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      max-width: 600px;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 0.75rem;
-      border: 2px solid #4a5568;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-    }
-    h1 {
-      color: white;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decline Cybersecurity Logo Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background for a tech feel */
+            color: #e2e8f0; /* Light text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #2d3748; /* Slightly lighter dark background for the card */
+            border-radius: 1rem; /* Rounded corners */
+            padding: 2.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #a0aec0;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #4a5568;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4299e1; /* Blue button */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #3182ce; /* Darker blue on hover */
+        }
+        .loading-indicator {
+            margin-top: 1.5rem;
+            color: #a0aec0;
+            font-style: italic;
+        }
+        .logo-display {
+            margin-top: 2rem;
+        }
+        .logo-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            border: 2px solid #4a5568;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        .error-message {
+            color: #fc8181; /* Red for errors */
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Decline Cybersecurity Logo</h1>
-    <img src="your-logo-file-path.png" alt="Decline Logo"/>
-  </div>
+    <div class="container">
+        <h1 class="text-3xl font-bold mb-6 text-white">Cybersecurity Logo Generator</h1>
+        <div class="input-group">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" value="Decline" readonly>
+        </div>
+        <button id="generateLogo">Generate Offensive Security Logo</button>
+        <div id="loading" class="loading-indicator hidden">Generating logo...</div>
+        <div id="errorMessage" class="error-message hidden"></div>
+        <div id="logoDisplay" class="logo-display">
+            <!-- Logo will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const companyNameInput = document.getElementById('companyName');
+        const generateLogoButton = document.getElementById('generateLogo');
+        const loadingIndicator = document.getElementById('loading');
+        const logoDisplay = document.getElementById('logoDisplay');
+        const errorMessage = document.getElementById('errorMessage');
+
+        generateLogoButton.addEventListener('click', generateLogo);
+
+        async function generateLogo() {
+            const companyName = companyNameInput.value;
+            if (!companyName) {
+                errorMessage.textContent = 'Please enter a company name.';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+            logoDisplay.innerHTML = ''; // Clear previous logo
+            errorMessage.classList.add('hidden');
+
+            try {
+                // Updated prompt for an attractive offensive security design
+                const prompt = `A highly attractive, dynamic, and visually striking logo for a cybersecurity company named "${companyName}". The design must embody the concept of **offensive security**, conveying precision, breach, and strategic dominance over digital vulnerabilities. Incorporate sleek, sharp, and angular elements that suggest penetration, breaking through barriers, or a decisive strike. Think of abstract symbols representing a targeted attack, a digital spearhead, or a powerful, unyielding force. The color palette should feature **vibrant, intense reds and crimson, dynamically contrasted with deep, metallic greys, blacks, and subtle glowing accents** to signify digital energy or a successful breach. The overall style should be modern, minimalist, and convey extreme power, strategic intelligence, and an attractive, formidable presence in the offensive cybersecurity landscape.`;
+
+                const payload = {
+                    instances: { prompt: prompt },
+                    parameters: { "sampleCount": 1 }
+                };
+                const apiKey = ""; // If you want to use models other than imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+                // Corrected API URL: imagen-3.0-generate-002 instead of imagen-30-generate-002
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    logoDisplay.innerHTML = `<img src="${imageUrl}" alt="${companyName} Logo">`;
+                } else {
+                    errorMessage.textContent = 'Failed to generate logo. Please try again.';
+                    errorMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error generating logo:', error);
+                errorMessage.textContent = 'An error occurred while generating the logo. Please check your network connection and try again.';
+                errorMessage.classList.remove('hidden');
+            } finally {
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // Generate logo on initial load for the default company name
+        window.onload = function() {
+            generateLogo();
+        };
+    </script>
 </body>
 </html>
