@@ -1,54 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Decline Cybersecurity Logo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>DECLINE - Global Cybersecurity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       margin: 0;
-      background: #0f0f0f;
-      color: #ff2c2c;
+      padding: 0;
+      background: #0c0c0c;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      font-family: 'Share Tech Mono', monospace;
+      height: 100vh;
+      flex-direction: column;
     }
 
     .logo-container {
       text-align: center;
-      animation: flicker 2s infinite;
+      padding: 20px;
     }
 
-    .logo {
-      font-size: 3rem;
-      letter-spacing: 0.1em;
-      text-shadow: 0 0 5px #ff2c2c, 0 0 10px #ff2c2c, 0 0 20px #ff2c2c;
+    .globe {
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/World_map_blank_without_borders.svg/1200px-World_map_blank_without_borders.svg.png') no-repeat center;
+      background-size: contain;
+      width: 80vw;
+      max-width: 1000px;
+      height: 400px;
+      opacity: 0.05;
+      position: absolute;
+      z-index: 0;
+      top: 20%;
+    }
+
+    .decline-logo {
+      font-size: 64px;
+      font-weight: bold;
+      color: #ff0033;
+      letter-spacing: 8px;
+      position: relative;
+      z-index: 2;
     }
 
     .tagline {
-      font-size: 1rem;
-      color: #c0392b;
-      margin-top: 0.5rem;
-      opacity: 0.7;
-      letter-spacing: 0.05em;
+      font-size: 18px;
+      font-weight: 300;
+      color: #ccc;
+      margin-top: 10px;
+      letter-spacing: 3px;
     }
 
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      40% { opacity: 0.9; }
-      50% { opacity: 0.7; }
-      60% { opacity: 1; }
-      70% { opacity: 0.8; }
+    .cube-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+      fill: #ff0033;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 12px;
+      color: #444;
     }
   </style>
 </head>
 <body>
+  <div class="globe"></div>
+
   <div class="logo-container">
-    <div class="logo">DECLINE.RED</div>
-    <div class="tagline">Offensive Security & Penetration Testing</div>
+    <svg class="cube-icon" viewBox="0 0 64 64">
+      <path d="M32 2L2 16v32l30 14 30-14V16L32 2zm0 4.618l25 11.667v27.43L32 57.382 7 45.715V18.285L32 6.618zM32 10L12 20l20 10 20-10L32 10zm-6 13.333v10l-8-4v-10l8 4zm4 0l8-4v10l-8 4v-10z"/>
+    </svg>
+
+    <div class="decline-logo">DECLINE</div>
+    <div class="tagline">GLOBAL CYBER DEFENSE | SECURITY INTELLIGENCE</div>
   </div>
+
+  <footer>© 2025 Decline Cybersecurity Pvt Ltd</footer>
 </body>
 </html>
