@@ -43,6 +43,17 @@
             border: 1px solid #21262d;
             color: #e2e8f0;
         }
+        /* Style for the message box */
+        .message-box {
+            background-color: #21262d;
+            border: 1px solid #6366f1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            color: #e2e8f0;
+            text-align: left;
+            word-wrap: break-word; /* Ensures long text wraps */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -83,9 +94,7 @@
                 <li><a href="#home" class="block text-gray-300 hover:text-white transition duration-300 py-2">Home</a></li>
                 <li><a href="#services" class="block text-gray-300 hover:text-white transition duration-300 py-2">Services</a></li>
                 <li><a href="#about" class="block text-gray-300 hover:text-white transition duration-300 py-2">About Us</a></li>
-                <li><a href="#contact" class="block text-gray-300 hover:text-white transition duration-300 py-2">Contact</a></li>
-                <li>
-                    <a href="#contact" class="block btn-primary text-white px-6 py-2 rounded-full font-semibold shadow-lg text-center">
+                <li><a href="#contact" class="block btn-primary text-white px-6 py-2 rounded-full font-semibold shadow-lg text-center">
                         Get a Quote
                     </a>
                 </li>
@@ -226,7 +235,7 @@
                     <div class="card p-8 rounded-xl shadow-lg flex flex-col items-center">
                         <i class="fas fa-lock text-5xl gradient-text mb-6"></i>
                         <h3 class="text-2xl font-bold text-white mb-4">Post-Engagement Support</h3>
-                        <p class="text-gray-400 text-center">
+                        <p class="text-400 text-center">
                             We offer ongoing support to help you implement our recommendations and verify fixes.
                         </p>
                     </div>
@@ -250,22 +259,25 @@
                     <!-- Contact Form -->
                     <div class="w-full lg:w-1/2 bg-gray-900 p-8 rounded-xl shadow-lg">
                         <h3 class="text-3xl font-bold text-white mb-6">Send Us a Message</h3>
-                        <form class="space-y-6">
+                        <!-- Formspree integration: action points to Formspree endpoint, method is POST -->
+                        <form id="contact-form" action="https://formspree.io/f/movljdwa" method="POST" class="space-y-6">
                             <div>
                                 <label for="name" class="block text-gray-300 text-left text-sm font-bold mb-2">Name</label>
-                                <input type="text" id="name" name="name" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your Name">
+                                <input type="text" id="name" name="name" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your Name" required>
                             </div>
                             <div>
                                 <label for="email" class="block text-gray-300 text-left text-sm font-bold mb-2">Email</label>
-                                <input type="email" id="email" name="email" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="your@example.com">
+                                <input type="email" id="email" name="email" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="your@example.com" required>
                             </div>
                             <div>
                                 <label for="message" class="block text-gray-300 text-left text-sm font-bold mb-2">Message</label>
-                                <textarea id="message" name="message" rows="6" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y" placeholder="Tell us about your security needs..."></textarea>
+                                <textarea id="message" name="message" rows="6" class="input-field w-full px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y" placeholder="Tell us about your security needs..." required></textarea>
                             </div>
                             <button type="submit" class="btn-primary text-white px-8 py-3 rounded-full font-bold text-lg w-full shadow-lg hover:scale-105">
                                 Send Message <i class="fas fa-paper-plane ml-2"></i>
                             </button>
+                            <!-- Message box for displaying submission results -->
+                            <div id="form-message" class="message-box hidden"></div>
                         </form>
                     </div>
 
@@ -342,6 +354,67 @@
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
             mobileMenu.classList.toggle('flex');
+        });
+
+        // Handle contact form submission (client-side feedback only)
+        const contactForm = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+
+        contactForm.addEventListener('submit', async function(e) {
+            // Formspree handles the actual submission, we just provide client-side feedback
+            // e.preventDefault(); // Do NOT prevent default if you want Formspree to handle it
+
+            // You can still add client-side validation here if needed before submission
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !message) {
+                formMessage.classList.remove('hidden');
+                formMessage.style.backgroundColor = '#dc2626'; /* Red for error */
+                formMessage.innerHTML = '<strong>Error:</strong> Please fill in all fields.';
+                e.preventDefault(); // Prevent submission if validation fails
+                return;
+            }
+
+            // Display a success message after the form is submitted to Formspree
+            // Formspree will redirect the user to a thank you page by default,
+            // or you can configure it to redirect back to your page.
+            // For a seamless experience without redirection, you'd use fetch API,
+            // but for simplicity with Formspree's basic setup, direct submission is common.
+
+            // If you want to handle success/error messages without redirection,
+            // you would use fetch API to send the data to Formspree, like this:
+            /*
+            e.preventDefault(); // Prevent default form submission for fetch
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: new FormData(contactForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    formMessage.classList.remove('hidden');
+                    formMessage.style.backgroundColor = '#10b981'; // Green for success
+                    formMessage.innerHTML = '<strong>Success!</strong> Your message has been sent.';
+                    contactForm.reset();
+                } else {
+                    const data = await response.json();
+                    formMessage.classList.remove('hidden');
+                    formMessage.style.backgroundColor = '#dc2626'; // Red for error
+                    formMessage.innerHTML = `<strong>Error:</strong> ${data.errors ? data.errors.map(err => err.message).join(', ') : 'Something went wrong.'}`;
+                }
+            } catch (error) {
+                formMessage.classList.remove('hidden');
+                formMessage.style.backgroundColor = '#dc2626'; // Red for error
+                formMessage.innerHTML = `<strong>Error:</strong> Network issue or server error.`;
+            }
+            setTimeout(() => {
+                formMessage.classList.add('hidden');
+            }, 10000); // Hide after 10 seconds
+            */
         });
     </script>
 </body>
